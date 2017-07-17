@@ -19,7 +19,7 @@ class LoadingDots extends React.Component {
 
     render() {
         let dots = this.state.frame % (this.props.dots + 1);
-        let text = ''
+        let text = '';
         while (dots > 0) {
             text += '.';
             dots--;
@@ -35,6 +35,6 @@ LoadingDots.defaultProps = {
 LoadingDots.propTypes = {
     interval: PropTypes.number,
     dots: PropTypes.number
-}
+};
 
 export default LoadingDots;
