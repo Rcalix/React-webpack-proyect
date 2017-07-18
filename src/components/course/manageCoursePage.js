@@ -5,7 +5,7 @@ import * as courseActions from '../../actions/courseActions';
 import CourseFrom from './courseForm';
 import toastr from 'toastr';
 
-class ManageCoursePage extends React.Component {
+export class ManageCoursePage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
