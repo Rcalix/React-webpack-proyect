@@ -9,7 +9,7 @@ function setup(saving) {
         saving: saving,
         errors: {},
         onSave: () => {},
-        onChange: () => {},
+        onChange: () => {}
     };
     let renderer = TestUtils.createRenderer();
     renderer.render(<CourseForm {...props}/>);

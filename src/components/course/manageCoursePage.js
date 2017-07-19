@@ -4,6 +4,8 @@ import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseFrom from './courseForm';
 import toastr from 'toastr';
+import {authorsFormattedForDropdown} from '../../selectors/selectors';
+
 
 export class ManageCoursePage extends React.Component {
     constructor(props, context) {
@@ -21,7 +23,7 @@ export class ManageCoursePage extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.course.id != nextProps.course.id) {
-            this.setState({course: Object.assign({}, nextProps.course)})
+            this.setState({course: Object.assign({}, nextProps.course)});
         }
     }
     
@@ -32,8 +34,23 @@ export class ManageCoursePage extends React.Component {
         return this.setState({course: course});
     }
 
+    courseFormIsValid() {
+        let formIsValid = true;
+        let errors = {};
+
+        if (this.state.course.title.length < 5) {
+            errors.title = 'Title must be at least 5 characters.';
+            formIsValid = false;
+        }
+        this.setState({errors: errors});
+        return formIsValid;
+    }
+
     saveCourse(event) {
         event.preventDefault();
+        if (!this.courseFormIsValid()) {
+            return;
+        }
         this.setState({saving: true});
         this.props.actions.saveCourse(this.state.course)
         .then(() => this.redirect())
@@ -83,18 +100,12 @@ function mapStateToProps(state, ownProps) {
     const courseId = ownProps.params.id;
     let course = {id: '', watchHref: '' ,title: '' , authorId: '' , length: '' , category: ''};
     if (courseId && state.courses.length > 0) {
-        console.log(courseId);
         course = getCourseById(state.courses, courseId);
     }
-    const authorsFormattedForDropdown = state.authors.map(author => {
-        return {
-            value: author.id,
-            text: author.firstName + '' + author.lastName
-        };
-    });
+
     return {
         course: course,
-        authors: authorsFormattedForDropdown
+        authors: authorsFormattedForDropdown(state.authors)
     };
 }
 

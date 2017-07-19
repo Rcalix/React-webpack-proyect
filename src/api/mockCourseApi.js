@@ -62,7 +62,6 @@ class CourseApi {
         resolve(Object.assign([], courses));
       }, delay);
 
-      console.log(courses);
     });
   }
 
@@ -86,7 +85,7 @@ class CourseApi {
           course.id = generateId(course);
           course.watchHref = `http://www.pluralsight.com/courses/${course.id}`;
           courses.push(course);
-          console.log(courses);
+  
         }
 
         resolve(course);

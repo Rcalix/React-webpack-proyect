@@ -3,12 +3,10 @@ import courseApi from '../api/mockCourseApi';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 export function loadCoursesSucces(courses) {
-    console.log(courses);
     return { type: types.LOAD_COURSES_SUCCESS, courses};
 }
 
 export function createCourseSuccess(courses) {
-    console.log(courses);
     return { type: types.CREATE_COURSE_SUCCESS, courses};
 }
 
@@ -35,7 +33,7 @@ export function saveCourse(course) {
             course.id ? dispatch(updateCourseSuccess(savedCourse)) : 
                 dispatch(createCourseSuccess(savedCourse));
         }).catch(error => {
-            dispatch(ajaxCallError(courses));
+            dispatch(ajaxCallError(course));
             throw(error);
         });
     };
